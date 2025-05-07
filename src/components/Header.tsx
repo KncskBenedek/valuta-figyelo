@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <>
@@ -19,18 +21,18 @@ export default function Header() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <div className="navbar-nav">
-              <a className="nav-link active" aria-current="page" href="#">
+              <Link className="nav-link active" aria-current="page" to="/">
                 Home
-              </a>
-              <a className="nav-link" href="#">
-                Features
-              </a>
-              <a className="nav-link" href="#">
-                Pricing
-              </a>
-              <a className="nav-link disabled" aria-disabled="true">
-                Disabled
-              </a>
+              </Link>
+              <Link className="nav-link" to="bank-exchange">
+                Bank
+              </Link>
+              <Link className="nav-link" to="currency-exchange">
+                Valuta
+              </Link>
+              <Link className="nav-link" to="history">
+                History
+              </Link>
             </div>
           </div>
         </div>
