@@ -15,7 +15,7 @@ export const useGetData = create((set, get) => ({
             const response = await axios.get("http://localhost:3001/" )
             console.log(response);
             
-        } catch (error) {
+        } catch (error) {   
             console.error(error);
             set({...initialState, error:true, errorData: error.message})
         }
