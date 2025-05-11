@@ -1,0 +1,20 @@
+export enum BankEnum{
+    bb= "bb",
+    allianz= "allianz", 
+    cib= "cib", 
+    citibank= "citibank", 
+    commerz= "commerz", 
+    erste= "erste", 
+    kdb= "kdb", 
+    kh= "kh", 
+    mkb= "mkb", 
+    oberbank= "oberbank", 
+    otp= "otp", 
+    raiffeisen= "raiffeisen", 
+    unicredit= "unicredit", 
+    volksbank= "volksbank", 
+    mnb= "mnb", 
+    sopron= "sopron", 
+    mfb= "mfb", 
+    fhb= "fhb"
+}
