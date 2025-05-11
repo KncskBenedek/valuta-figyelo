@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useValutaStore } from "../../zustand/store";
-import type { ValutaItem } from "../../utils/types/ValutaItem";
 import type { CurrencyEnum } from "../../utils/enums/CurrencyEnum";
 import type { BankEnum } from "../../utils/enums/BankEnum";
+import SelectCurrency from "./SelectCurrency";
+import CurrencyDataTable from "./CurrencyDataTable";
 
 export default function CurrencyExchangeRate() {
   const { data, loading, error, fetchData } = useValutaStore();
@@ -14,11 +15,22 @@ export default function CurrencyExchangeRate() {
   }, [fetchData, valuta]);
 
   if (loading) {
-    return <p>Loading</p>;
+    return (
+      <div className="spinner-border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    );
   }
   return (
     <>
-      <p>Itt a CurrencyExchangeRate</p>
+      <SelectCurrency></SelectCurrency>
+      <CurrencyDataTable></CurrencyDataTable>
+    </>
+  );
+}
+
+/*
+<p>Itt a CurrencyExchangeRate</p>
       {data.length === 0 ? (
         <p>üres</p>
       ) : (
@@ -32,6 +44,4 @@ export default function CurrencyExchangeRate() {
           </ul>
         ))
       )}
-    </>
-  );
-}
+*/

@@ -1,19 +1,22 @@
+import { CurrencyEnum } from './../utils/enums/CurrencyEnum';
 import { create } from 'zustand';
 import axios from 'axios';
 import { parseXML } from '../utils/parseXML';
 import type { ValutaItem } from '../utils/types/ValutaItem';
 
-type Data = ValutaItem[];
 
 interface DataStore {
-  data: Data;
+  data: ValutaItem[];
+  valuta: CurrencyEnum | null;
   loading: boolean;
   error: string | null;
   fetchData:  (query?:string) => Promise<void>;
+  setValuta: (valuta:CurrencyEnum)=>void;
 }
 
 export const useValutaStore = create<DataStore>((set) => ({
   data: [],
+  valuta: null,
   loading: false,
   error: null,
 
@@ -35,4 +38,7 @@ export const useValutaStore = create<DataStore>((set) => ({
       });
     }
   },
+  setValuta: (valuta)=>{
+    set((state)=>({ valuta : valuta}))
+  }
 }));
