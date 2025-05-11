@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <>
+    <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
@@ -37,6 +37,6 @@ export default function Header() {
           </div>
         </div>
       </nav>
-    </>
+    </div>
   );
 }
