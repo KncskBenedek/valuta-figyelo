@@ -1,4 +1,4 @@
-enum BankEnum{
+export enum BankEnum{
     bb= "bb",
     allianz= "allianz", 
     cib= "cib", 
