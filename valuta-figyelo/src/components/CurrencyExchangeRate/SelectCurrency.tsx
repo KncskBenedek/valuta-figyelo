@@ -3,7 +3,7 @@ import { CurrencyEnum } from "../../utils/enums/CurrencyEnum";
 import { useValutaStore } from "../../zustand/store";
 
 export default function SelectCurrency() {
-  const { valuta, setValuta } = useValutaStore();
+  const { setValuta, valuta } = useValutaStore();
   const valutak = Object.keys(CurrencyEnum) as Array<keyof typeof CurrencyEnum>;
   const ref = useRef(null);
   function handleOnSelectChange() {
@@ -20,9 +20,6 @@ export default function SelectCurrency() {
       id="CurrencySelector"
       ref={ref}
     >
-      <option value="" selected hidden>
-        Choose here
-      </option>
       {valutak.map((element) => {
         return <option key={element}>{element}</option>;
       })}

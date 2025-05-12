@@ -1,8 +1,12 @@
+import { BankEnum } from "../../utils/enums/BankEnum";
 import type { ValutaItem } from "../../utils/types/ValutaItem";
 import { useValutaStore } from "../../zustand/store";
 const nincsAdat = "Nincs Adat";
 export default function CurrencyDataTable() {
-  const { data, valuta } = useValutaStore();
+  const { tableData: data, valuta, setBank } = useValutaStore();
+  const handleOnClickBank = (bank) => {
+    setBank(BankEnum[bank]);
+  };
   return (
     <>
       <h1>
@@ -21,10 +25,15 @@ export default function CurrencyDataTable() {
           {data.map((item: ValutaItem) => {
             return (
               <tr>
-                <th>{item.bank ?? nincsAdat}</th>
+                <th onClick={() => handleOnClickBank(item.bank)}>
+                  {item.bank ?? nincsAdat}
+                </th>
                 <td>{item.eladas ?? nincsAdat}</td>
                 <td>{item.vetel ?? nincsAdat}</td>
-                <td>{item.datum?.toISOString() ?? nincsAdat}</td>
+                <td>
+                  {item.datum?.toISOString().replace("T", " ").slice(0, 19) ??
+                    nincsAdat}
+                </td>
               </tr>
             );
           })}

@@ -1,17 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useValutaStore } from "../../zustand/store";
-
 import SelectCurrency from "./SelectCurrency";
 import CurrencyDataTable from "./CurrencyDataTable";
+import BankCurrencyChart from "./BankCurrencyChart";
 
 export default function CurrencyExchangeRate() {
-  const { loading, data, valuta, error, fetchData } = useValutaStore();
-
+  const {
+    loading,
+    tableData: data,
+    valuta,
+    bank,
+    setTableData,
+    setChartData,
+  } = useValutaStore();
   useEffect(() => {
     if (valuta != null) {
-      fetchData(valuta);
+      setTableData({ valuta: valuta.toString() });
     }
-  }, [fetchData, valuta]);
+  }, [setTableData, valuta]);
+  useEffect(() => {
+    if (bank != null) {
+      const today = new Date();
+
+      setChartData({
+        valuta: valuta,
+        bank: bank,
+        datumend: today.toISOString().slice(0, 10).replace(/-/g, ""),
+        datum: new Date(today.setDate(today.getDate() - 7))
+          .toISOString()
+          .slice(0, 10)
+          .replace(/-/g, ""),
+      });
+    }
+  }, [bank, valuta, setChartData]);
 
   if (loading) {
     return (
@@ -24,6 +45,7 @@ export default function CurrencyExchangeRate() {
     <>
       <SelectCurrency />
       {data.length !== 0 && <CurrencyDataTable />}
+      {bank !== null && <BankCurrencyChart />}
     </>
   );
 }
