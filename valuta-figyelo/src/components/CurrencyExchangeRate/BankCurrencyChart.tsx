@@ -56,8 +56,17 @@ export default function BankCurrencyChart() {
       "rgba(125, 99, 255, 0.5)"
     ),
   ]);
+  const percent =
+    ((chartData[chartData.length - 1].vetel - chartData[0].vetel) /
+      chartData[0].vetel) *
+    100;
   return (
     <>
+      <h2>
+        Az elmült 7 napban {percent.toFixed(3)}%-os változás történt a ({bank})
+        banknál .
+      </h2>
+
       <div className="w-full max-w-5xl p-4">
         <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400">
           <div className="h-96" style={{ height: "700px" }}>
