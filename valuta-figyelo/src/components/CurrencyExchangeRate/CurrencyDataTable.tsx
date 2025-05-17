@@ -1,11 +1,10 @@
-import { BankEnum } from "../../utils/enums/BankEnum";
 import type { ValutaItem } from "../../utils/types/ValutaItem";
 import { useValutaStore } from "../../zustand/store";
 const nincsAdat = "Nincs Adat";
 export default function CurrencyDataTable() {
   const { tableData: data, valuta, setBank } = useValutaStore();
   const handleOnClickBank = (bank) => {
-    setBank(BankEnum[bank]);
+    setBank(bank);
   };
   return (
     <>
@@ -24,7 +23,7 @@ export default function CurrencyDataTable() {
         <tbody className="table-group-divider">
           {data.map((item: ValutaItem) => {
             return (
-              <tr>
+              <tr key={item.bank}>
                 <th onClick={() => handleOnClickBank(item.bank)}>
                   {item.bank ?? nincsAdat}
                 </th>

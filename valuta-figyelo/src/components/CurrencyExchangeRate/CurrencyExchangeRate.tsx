@@ -10,6 +10,7 @@ export default function CurrencyExchangeRate() {
     tableData: data,
     valuta,
     bank,
+    chartData,
     setTableData,
     setChartData,
   } = useValutaStore();
@@ -45,7 +46,7 @@ export default function CurrencyExchangeRate() {
     <>
       <SelectCurrency />
       {data.length !== 0 && <CurrencyDataTable />}
-      {bank !== null && <BankCurrencyChart />}
+      {chartData.length !== 0 && <BankCurrencyChart />}
     </>
   );
 }

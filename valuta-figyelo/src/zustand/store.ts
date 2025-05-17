@@ -17,7 +17,7 @@ interface DataStore {
   setChartData: (query?) => void;
   fetchData:  (query?) => Promise<ValutaItem[]>;
   setValuta: (valuta:CurrencyEnum)=>void;
-  setBank: (bank: BankEnum)=>void;
+  setBank: (bank: BankEnum | string)=>void;
 }
 
 export const useValutaStore = create<DataStore>((set, get) => ({
@@ -49,10 +49,7 @@ export const useValutaStore = create<DataStore>((set, get) => ({
     set((state)=>({ tableData: d, loading: false }));
   },
   setChartData: async (query?) => {
-    console.log(query);
     const d = await get().fetchData(query);
-    console.log(d);
-    
     set((state)=>({ chartData: d, loading: false }));
   },
   setValuta: (valuta)=>{
