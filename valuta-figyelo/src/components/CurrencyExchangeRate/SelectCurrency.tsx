@@ -20,6 +20,7 @@ export default function SelectCurrency() {
       id="CurrencySelector"
       ref={ref}
     >
+      <option selected>Válassz valutát</option>
       {valutak.map((element) => {
         return <option key={element}>{element}</option>;
       })}
