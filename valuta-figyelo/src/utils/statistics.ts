@@ -12,29 +12,33 @@ export const mean = (x : number[])=> {
 export const sd = (x: number[])=>{
     const meanX = mean(x) ;
     const N = x.length;
-    if (N <= 0) return 0;
+    if (N <= 1) throw new Error("A korrigált tapasztalati szóráshoz n <= 1 hossz nem megfelelő.");
+
     let sum = 0;
-    for (let i = 1; i < N; i++) {
+    for (let i = 0; i < N; i++) {
         sum += ((x[i] - meanX)**2);
     }
     const szorzo = 1/(Math.sqrt(N-1));
     return (szorzo * Math.sqrt(sum));
 }
-//tapasztalati kovariancia
+//korrigált tapasztalati kovariancia
 export const cov = (x: number[], y: number[])=>{
     if(x.length !== y.length) throw new Error("A tapasztalati kovarianciához n darab xi és yi mintára van szükség.")
-
+    if (x.length <= 1) throw new Error("A tapasztalati kovarianciához n <= 1 hossz nem megfelelő.");
     let sum = 0;
     const N = x.length;
     const meanX = mean(x);
     const meanY = mean(y);
-    for (let i = 1; i < N; i++) {
+    for (let i = 0; i < N; i++) {
         sum += (x[i]-meanX)*(y[i]-meanY);
     }
-    return ((1/N)*sum)
+    return ((1/(N-1))*sum)
 }
 
 //korreláció
 export const cor = (x: number[], y: number[])=>{
-    return (cov(x,y))/(mean(x)*mean(y))
+    const sdX = sd(x);
+    const sdY = sd(y);
+    if (sdX === 0 || sdY === 0) throw new Error("Nulla szórás miatt nem értelmezhető a korreláció.");
+    return cov(x, y) / (sdX * sdY);
 }
