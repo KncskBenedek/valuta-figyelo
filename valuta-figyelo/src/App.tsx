@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import NoPage from "./components/NoPage";
 import BankExchangeRate from "./components/BankExchangeRate/BankExchangeRate";
 import CurrencyExchangeRate from "./components/CurrencyExchangeRate/CurrencyExchangeRate";
-import History from "./components/History/History";
+import History from "./components/PeriodSummary/PeriodSummary";
 
 function App() {
   return (

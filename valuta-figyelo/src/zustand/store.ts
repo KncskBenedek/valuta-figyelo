@@ -6,7 +6,7 @@ import type { ValutaItem } from '../utils/types/ValutaItem';
 import type { BankEnum } from '../utils/enums/BankEnum';
 
 
-interface DataStore {
+interface ValutaDataStore {
   tableData: ValutaItem[];
   chartData: ValutaItem[];
   valuta: CurrencyEnum | null;
@@ -20,7 +20,7 @@ interface DataStore {
   setBank: (bank: BankEnum | string)=>void;
 }
 
-export const useValutaStore = create<DataStore>((set, get) => ({
+export const useValutaStore = create<ValutaDataStore>((set, get) => ({
   tableData: [],
   chartData: [],
   valuta: null,
@@ -59,3 +59,34 @@ export const useValutaStore = create<DataStore>((set, get) => ({
     set((state)=>({bank : bank}))
   }
 }));
+
+interface PeriodDataStore{
+  periodus: {tol: string|null,  ig: string|null};
+  periodData: ValutaItem[];
+  bank: BankEnum| string|null;
+  setTolIg: (tol:string, ig:string)=> Promise<void>;
+  fetchPeriod: (query) => Promise<ValutaItem[]>;
+  setBank: (bank:string|BankEnum)=>void ;
+}
+export const usePeriodSummaryStore = create<PeriodDataStore>((set, get) =>({
+  periodus: {tol : null,ig:null},
+  periodData: [],
+  bank: null,
+  setTolIg: async (tol, ig) =>{
+    set((state)=>({...state,...state.periodus, periodus: {tol:tol, ig:ig}}))
+    const data = await get().fetchPeriod({datumend: ig.replace(/-/g, ""), datum: tol.replace(/-/g, ""), bank: get().bank})
+    set((state)=>({...state, ...state.periodus, periodData: data }))
+  },
+  fetchPeriod: async (query) =>{
+    try {
+        const response = await axios.get("http://localhost:3001/", {params: query}); 
+        return parseXML(response.data);
+    } catch (error: any) {
+        console.error(error);
+      return [];
+    }
+  },
+  setBank: (bank)=>{
+    set((state)=>({...state, ...state.periodus, bank:bank}))
+  }
+}))
