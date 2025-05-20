@@ -1,3 +1,3 @@
 export default function BankExchangeRate() {
-  return <p>Itt a BankExchangeRate</p>;
+  return <p>Fejlesztés alatt</p>;
 }

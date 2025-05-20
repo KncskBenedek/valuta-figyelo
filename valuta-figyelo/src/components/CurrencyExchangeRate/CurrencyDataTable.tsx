@@ -6,6 +6,7 @@ export default function CurrencyDataTable() {
   const handleOnClickBank = (bank) => {
     setBank(bank);
   };
+  const today = new Date().toISOString().slice(0, 10);
   return (
     <>
       <h1>
@@ -24,6 +25,16 @@ export default function CurrencyDataTable() {
           {data.map((item: ValutaItem) => {
             return (
               <tr key={item.bank}>
+                {item.datum?.toISOString().slice(0, 10) === today ? (
+                  <th
+                    className="bg-success"
+                    onClick={() => handleOnClickBank(item.bank)}
+                  >
+                    {item.bank ?? nincsAdat}
+                  </th>
+                ) : (
+                  <th className="bg-secondary">{item.bank ?? nincsAdat}</th>
+                )}
                 <th onClick={() => handleOnClickBank(item.bank)}>
                   {item.bank ?? nincsAdat}
                 </th>
