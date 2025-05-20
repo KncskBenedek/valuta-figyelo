@@ -1,4 +1,5 @@
 import { usePeriodSummaryStore } from "../../zustand/store";
+import CorrelationChart from "./CorrelationChart.tsx";
 import CorrelationSummary from "./CorrelationSummary.tsx";
 import PeriodSelector from "./PeriodSelector";
 
@@ -12,7 +13,7 @@ export default function History() {
       {selectedCorrelation.x === null && selectedCorrelation.y === null ? (
         <>Válasszon ki korrelációt :- </>
       ) : (
-        <>Választva korreláció :::</>
+        <CorrelationChart />
       )}
     </>
   );

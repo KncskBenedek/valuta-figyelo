@@ -71,7 +71,7 @@ interface PeriodDataState{
   periodus: {tol: string|null,  ig: string|null};
   periodData: ValutaItem[];
   bank: BankEnum| string|null;
-  selectedCorrelation: {x: string|null, y:string|null};
+  selectedCorrelation: {x: number|null, y:number|null};
   napiAtlagok: NapiValutaAtlag[];
   valutak: string[];
 
