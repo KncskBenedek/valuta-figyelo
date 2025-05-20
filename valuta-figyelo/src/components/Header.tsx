@@ -31,7 +31,7 @@ export default function Header() {
                 Valuta
               </Link>
               <Link className="nav-link" to="history">
-                History
+                Periódus
               </Link>
             </div>
           </div>
