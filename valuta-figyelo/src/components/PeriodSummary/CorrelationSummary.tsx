@@ -10,7 +10,7 @@ export default function CorrelationSummary() {
     usePeriodSummaryStore();
   //valuta és dátum alapján szétszortírozni,
   if (periodData.length === 0) {
-    return <p>Üres</p>;
+    return <></>;
   }
   const corMatrixData = corMatrix(napiAtlagok, Array.from(valutak));
   // ellenőrizni a tömbök hosszát,

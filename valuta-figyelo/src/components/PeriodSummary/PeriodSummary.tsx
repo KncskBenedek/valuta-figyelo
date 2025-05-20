@@ -11,7 +11,7 @@ export default function History() {
       <CorrelationSummary />
 
       {selectedCorrelation.x === null && selectedCorrelation.y === null ? (
-        <>Válasszon ki korrelációt :- </>
+        <></>
       ) : (
         <CorrelationChart />
       )}

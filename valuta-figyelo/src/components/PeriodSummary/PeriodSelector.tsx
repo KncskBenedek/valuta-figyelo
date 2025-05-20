@@ -13,13 +13,25 @@ export default function PeriodSelector() {
   return (
     <>
       <form ref={formRef}>
-        <label htmlFor="tol">tól:</label>
-        <input type="date" name="tol" id="tol" />
-        <label htmlFor="ig">ig:</label>
-        <input type="date" name="ig" id="ig" />
+        <div className="mb-3">
+          <label htmlFor="tol" className="form-label">
+            Dátumtól:
+          </label>
+          <input type="date" name="tol" id="tol" className="form-control" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="ig" className="form-label">
+            Dátumig:
+          </label>
+          <input type="date" name="ig" id="ig" className="form-control" />
+        </div>
       </form>
       <BankSelector />
-      <button onClick={onClickHandle}>keres</button>
+      <div className="md-3">
+        <button onClick={onClickHandle} className="btn btn-primary">
+          keres
+        </button>
+      </div>
     </>
   );
 }
