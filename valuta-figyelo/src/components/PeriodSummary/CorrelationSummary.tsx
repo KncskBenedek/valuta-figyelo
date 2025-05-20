@@ -1,45 +1,28 @@
-import { cor } from "../../utils/statistics";
+import { corMatrix } from "../../utils/statistics";
 import { usePeriodSummaryStore } from "../../zustand/store";
-
+import { elokeszites } from "./CorrelationSummary";
+export interface NapiValutaAtlag {
+  datum: string;
+  penznem: string;
+  vetelAtlag: number;
+}
 export default function CorrelationSummary() {
   const { periodData } = usePeriodSummaryStore();
   //valuta és dátum alapján szétszortírozni,
   if (periodData.length === 0) {
     return <p>Üres</p>;
   }
-  const grouped = Object.groupBy(periodData, (row) => {
-    if (!row.datum || !row.penznem || row.eladas == null) {
-      return "invalid";
-    }
-    const date = row.datum.toISOString().split("T")[0];
-    return `${date}_${row.penznem}`;
-  });
 
-  const napiAtlagok: {
-    datum: string;
-    penznem: string;
-    vetelAtlag: number;
-  }[] = [];
-  const valutak = new Set();
-  delete grouped.invalid;
+  const d = elokeszites(periodData);
+  const napiAtlagok = d.napiAtlagok;
+  const valutak = d.valutak;
 
-  //  napi átlagot aggregálni,
-  for (const [key, rows] of Object.entries(grouped)) {
-    const [datum, penznem] = key.split("_");
-    const eladasAtlag =
-      rows.reduce((sum, row) => sum + (row.vetel ?? 0), 0) / rows.length;
-    napiAtlagok.push({
-      datum,
-      penznem,
-      vetelAtlag: Number(eladasAtlag.toFixed(4)), // 4 tizedes pontosság
-    });
-    valutak.add(penznem);
-  }
+  const corMatrixData = corMatrix(napiAtlagok, Array.from(valutak));
   // ellenőrizni a tömbök hosszát,
   //  valutánként korrelációt mérni
   return (
     <>
-      <table>
+      <table className="table table-bordered">
         <thead>
           <tr>
             <th> </th>
@@ -48,24 +31,21 @@ export default function CorrelationSummary() {
             })}
           </tr>
         </thead>
-        <tbody>
-          {Array.from(valutak).map((x) => {
+        <tbody className="table-group-divider">
+          {Array.from(valutak).map((x, indexX) => {
             return (
               <tr>
                 <th>{x}</th>
-                {Array.from(valutak).map((y) => {
+                {corMatrixData[indexX].map((y, indexY) => {
                   return (
-                    <td>
-                      {x === y
-                        ? "1"
-                        : cor(
-                            napiAtlagok
-                              .filter((row) => row.penznem === x)
-                              .map((o) => o.vetelAtlag),
-                            napiAtlagok
-                              .filter((row) => row.penznem === y)
-                              .map((o) => o.vetelAtlag)
-                          ).toFixed(3)}
+                    <td
+                      className={
+                        Math.abs(y.toFixed(2)) > 0.7 && indexX !== indexY
+                          ? "bg-success"
+                          : ""
+                      }
+                    >
+                      {y.toFixed(2)}
                     </td>
                   );
                 })}
