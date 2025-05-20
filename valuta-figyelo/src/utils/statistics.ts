@@ -47,7 +47,6 @@ export const cor = (x: number[], y: number[])=>{
 
 export const corMatrix = (data: NapiValutaAtlag[], keys)=>{
     const d = matrix(keys.length,keys.length)    
-    console.log(data);
     
     for (let i = 0; i < keys.length; i++) {
         for (let t = 0; t < keys.length; t++) {

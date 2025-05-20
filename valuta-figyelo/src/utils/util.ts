@@ -1,4 +1,5 @@
-import type { NapiValutaAtlag } from './CorrelationSummary.tsx';
+import type { NapiValutaAtlag } from "../components/PeriodSummary/CorrelationSummary";
+
 export const elokeszites = (periodData)=>{
       const grouped = Object.groupBy(periodData, (row) => {
     if (!row.datum || !row.penznem || row.eladas == null) {
@@ -24,5 +25,6 @@ export const elokeszites = (periodData)=>{
     });
     valutak.add(penznem);
   }
-  return {valutak, napiAtlagok}
+  const valutakArray = Array.from(valutak);
+  return {valutakArray, napiAtlagok}
 }
