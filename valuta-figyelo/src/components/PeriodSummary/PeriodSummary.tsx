@@ -1,12 +1,11 @@
-import { usePeriodSummaryStore } from "../../zustand/store";
-import BankSelector from "./BankSelector";
+import CorrelationSummary from "./CorrelationSummary";
 import PeriodSelector from "./PeriodSelector";
 
 export default function History() {
-  const { periodus } = usePeriodSummaryStore();
   return (
     <>
       <PeriodSelector />
+      <CorrelationSummary />
     </>
   );
 }

@@ -8,7 +8,6 @@ export default function BankSelector() {
   const selectorRef = useRef(null);
   function handleOnSelectChange(): void {
     setBank(BankEnum[selectorRef.current.value]);
-    console.log(BankEnum[selectorRef.current.value]);
   }
 
   return (

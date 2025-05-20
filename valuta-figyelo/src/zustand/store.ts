@@ -75,6 +75,7 @@ export const usePeriodSummaryStore = create<PeriodDataStore>((set, get) =>({
   setTolIg: async (tol, ig) =>{
     set((state)=>({...state,...state.periodus, periodus: {tol:tol, ig:ig}}))
     const data = await get().fetchPeriod({datumend: ig.replace(/-/g, ""), datum: tol.replace(/-/g, ""), bank: get().bank})
+    
     set((state)=>({...state, ...state.periodus, periodData: data }))
   },
   fetchPeriod: async (query) =>{
