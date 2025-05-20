@@ -1,3 +1,5 @@
+import type { NapiValutaAtlag } from "../components/PeriodSummary/CorrelationSummary";
+
 //átlag tapasztalati várható érték
 export const mean = (x : number[])=> {
     const N = x.length;
@@ -42,3 +44,27 @@ export const cor = (x: number[], y: number[])=>{
     if (sdX === 0 || sdY === 0) throw new Error("Nulla szórás miatt nem értelmezhető a korreláció.");
     return cov(x, y) / (sdX * sdY);
 }
+
+export const corMatrix = (data: NapiValutaAtlag[], keys)=>{
+    const d = matrix(keys.length,keys.length)    
+    
+    for (let i = 0; i < keys.length; i++) {
+        for (let t = 0; t < keys.length; t++) {
+            if (keys[i] === keys[t]) {
+                d[i][t] = 1;
+                 continue
+            }
+            const x = data.filter((o)=>o.penznem === keys[i]).map(o => o.vetelAtlag);
+            const y = data.filter((o)=>o.penznem === keys[t]).map(o => o.vetelAtlag);
+            const c = cor(x,y);
+            
+            d[i][t] = c;
+            d[t][i] = c;
+
+        }           
+    }
+    
+    return d;
+}
+const create = (amount:number) => new Array(amount).fill(0);
+const matrix = (rows:number, cols:number) => create(cols).map((o, i) => create(rows))
