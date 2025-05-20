@@ -37,8 +37,8 @@ export default function Home() {
         </li>
       </ul>
       <p className="text-danger">
-        Az adatok és minden ezekből levont következtetések feltehetően tévesek
-        vagy hibásak.
+        Az adatok és minden ezekből levont következtetés feltehetően téves vagy
+        hibás.
       </p>
     </>
   );
